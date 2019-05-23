@@ -1,18 +1,9 @@
 import os
 from os import listdir
-from string import punctuation
 from collections import Counter
 from nltk.corpus import stopwords
+from utils import load_doc
 import string
-
-def load_doc(filename):
-    """ Load document into memory. """
-    file = open(filename, 'r')
-    text = file.read()
-
-    file.close()
-
-    return text
 
 def clean_doc(doc):
     """ Convert document into cleaned tokens """
@@ -22,7 +13,7 @@ def clean_doc(doc):
 
     # Remove punctuation from each token
     table = str.maketrans('', '', string.punctuation)
-    tokens = [w.translate() for w in tokens]
+    tokens = [w.translate(table) for w in tokens]
 
     # Remove remaining tokens that are not alphabetic
     tokens = [word for word in tokens if word.isalpha()]
